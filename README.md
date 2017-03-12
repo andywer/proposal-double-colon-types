@@ -55,9 +55,19 @@ This syntax is intended to be consumed by flow/babel and other code analyzers/tr
 
 Babel as well as its parser Babylon had to be patched/extended in order to parse the double-colon type syntax. You can find the Babylon fork [here](https://github.com/andywer/babylon/tree/feature/dblcolon-types). Clone the feature branch and run `yarn && npm run build && npm link`.
 
-The Babel fork can be found [here](https://github.com/andywer/babel/tree/feature/dctypes). Clone the feature branch and run `yarn && lerna bootstrap && npm run build` in the project root directory, then `cd packages/babel-core && rm -rf node_modules/babylon && npm link babylon`.
+The Babel fork can be found [here](https://github.com/andywer/babel/tree/feature/dctypes). Clone the feature branch and run `yarn && lerna bootstrap && npm run build` in the project root directory, then `cd packages/babel-core && rm -rf node_modules/babylon && npm link babylon`. Finally `cd ../babel-types && npm link`.
 
-You should then be able to run the samples in `dctypes-test/` in the babel root directory.
+To set up the samples in `dctypes-test/` in the babel root directory:
+
+```sh
+cd dctypes-test/
+npm install
+rm -rf node_modules/babylon node_modules/babel-types
+npm link babylon
+npm link babel-types
+```
+
+`npm run` will show you the samples to run.
 
 
 ## Available transformations
