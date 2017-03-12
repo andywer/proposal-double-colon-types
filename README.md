@@ -11,7 +11,9 @@ The idea for this syntax has been inspired by the syntax of [elm](http://elm-lan
 
 Static typing in JavaScript is a nice and powerful opt-in feature. Both TypeScript and Flow use the same syntax of inlining the type declarations as part of the actual implementation code. While that works well in general, it also tends to make the code slightly harder to read, as it happens in C, C++, Java, ..., too.
 
-There is a different way favored by popular functional programming languages which chose to go a different way: Separating the declaration and the implementation. This proposal covers adding this syntax to JavaScript using the `::` operator:
+There is a different way favored by popular functional programming languages which chose to go a different way: Separating the declaration and the implementation.
+
+This proposal covers adding this syntax to JavaScript using the `::` operator:
 
 ```js
 minimum :: (...number) => number
@@ -28,7 +30,7 @@ function minimum (...args) {
 
 1. It is easier to add to existing non-typed code, since you do not even need to touch the actual code. You just need to add the declaration.
 
-2. It becomes trivial to track / recognize API changes. As soon as you split declaration and implementation you can track breaking interface changes by just watching the declarations and use this knowledge for semantic versioning. Elm, for example, takes great advantage of this, doing semantic versioning automatically.
+2. It becomes trivial to track / recognize API changes. As soon as you split declaration and implementation you can track breaking interface changes by just watching the declarations and use this knowledge for semantic versioning. Elm, for example, does automatic semantic versioning based on this.
 
 3. For functions having many parameters with complex types it can increase readability, since a medium-length declaration line and a medium-length implementation line are easier to grasp than a single long line including both.
 
@@ -184,3 +186,8 @@ t.annotate(add, t.function(t.param("x", t.number()), t.param("y", t.number()), t
 
 - Does not yet work with `flow-bin`. The static flow type checker is written in OCAML and it would need to be patched as well.
 - Just a proof-of-concept right now. Don't be too mad if it does not work in edge-cases yet.
+
+
+## Feedback
+
+Having feedback? Feel free to open an issue or pull request 😉
