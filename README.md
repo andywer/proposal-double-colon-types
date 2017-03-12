@@ -46,12 +46,128 @@ function Greeting ({ name }) {
 ```
 
 
-## Available transformations
+## What it is not
 
+This syntax is intended to be consumed by flow/babel and other code analyzers/transpilers. It is not intended to become an ES core language feature.
 
 
 ## Setup
 
+Babel as well as its parser Babylon had to be patched/extended in order to parse the double-colon type syntax. You can find the Babylon fork [here](https://github.com/andywer/babylon/tree/feature/dblcolon-types). Clone the feature branch and run `yarn && npm run build && npm link`.
+
+The Babel fork can be found [here](https://github.com/andywer/babel/tree/feature/dctypes). Clone the feature branch and run `yarn && lerna bootstrap && npm run build` in the project root directory, then `cd packages/babel-core && rm -rf node_modules/babylon && npm link babylon`.
+
+You should then be able to run the samples in `dctypes-test/` in the babel root directory.
+
+
+## Available transformations
+
+### babel-plugin-transform-to-flow
+
+#### Source
+
+```js
+// test-code.js
+
+name :: string
+
+let name = 'Harry'
+
+add :: (number, number) => number
+
+function add (x, y) {
+  return x + y
+}
+```
+
+#### Command
+
+```sh
+babel --plugins=transform-dctypes-to-flow --no-babelrc test-code.js
+```
+
+#### Output
+
+```js
+/* @flow */
+
+let name: string = 'Harry';
+
+function add(x: number, y: number): number {
+  return x + y;
+}
+```
+
+### babel-plugin-transform-dctypes-comments
+
+#### Source
+
+```js
+// test-code.js
+
+add :: (number, number) => number
+
+function add (x, y) {
+  return x + y
+}
+```
+
+#### Command
+
+```sh
+babel --plugins=transform-dctypes-comments --no-babelrc test-code.js
+```
+
+#### Output
+
+```js
+
+// add :: (number, number) => number
+function add(x, y) {
+  return x + y;
+}
+```
+
+### babel-plugin-transform-dctypes-to-flow & babel-plugin-flow-runtime
+
+#### Source
+
+```js
+// test-code.js
+
+add :: (number, number) => number
+
+function add (x, y) {
+  return x + y
+}
+```
+
+#### Command
+
+```sh
+NODE_ENV=development babel --plugins=transform-dctypes-to-flow,flow-runtime --no-babelrc test-code.js
+```
+
+#### Output
+
+```js
+/* @flow */import t from "flow-runtime";
+
+
+function add(x: number, y: number): number {
+  let _xType = t.number();
+
+  let _yType = t.number();
+
+  const _returnType = t.return(t.number());
+
+  t.param("x", _xType).assert(x);
+  t.param("y", _yType).assert(y);
+
+  return _returnType.assert(x + y);
+}
+t.annotate(add, t.function(t.param("x", t.number()), t.param("y", t.number()), t.return(t.number())));
+```
 
 
 ## Limitations
