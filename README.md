@@ -4,6 +4,8 @@ JavaScript / Flow syntax proposal. Separate declaration and implementation of fu
 
 The idea for this syntax has been inspired by the syntax of [elm](http://elm-lang.org/), [haskell](http://www.haskell.org/) and the comments in the snippets shown in [JavaScript without loops](http://jrsinclair.com/articles/2017/javascript-without-loops/).
 
+Check out [Professor Frisby's Mostly Adequate Guide to Functional Programming, Chapter 7](https://drboolean.gitbooks.io/mostly-adequate-guide/content/ch7.html) if you seek further reading. The guide is about JavaScript, using the same syntax, but just in comments.
+
 *Disclaimer: Like many language features this one is also subject to personal preference and you might or might not like it.*
 
 
