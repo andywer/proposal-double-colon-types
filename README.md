@@ -55,7 +55,12 @@ function Greeting ({ name }) {
 This syntax is intended to be consumed by flow/babel and other code analyzers/transpilers. It is not intended to become an ES core language feature.
 
 
-## Setup
+## Try it yourself
+
+Check out [gear](https://github.com/andywer/gear). It is a small tool that makes Babel and Flow work with those types. Futhermore its own code uses this very syntax extension, so check out its code to see a working example of code typed this way.
+
+
+## Manual setup
 
 Babel as well as its parser Babylon had to be patched/extended in order to parse the double-colon type syntax. You can find the Babylon fork [here](https://github.com/andywer/babylon/tree/feature/dblcolon-types). Clone the feature branch and run `yarn && npm run build && npm link`.
 
